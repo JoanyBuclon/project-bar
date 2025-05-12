@@ -1,5 +1,5 @@
 <template>
   <UApp>
-    <HelloWorld />
+    <ProjectBar />
   </UApp>
 </template>
