@@ -1,75 +1,26 @@
-# Nuxt Minimal Starter
+# Project Bar
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A small and visual project management tool
 
-## Setup
+You can check my [roadmap](https://trello.com/b/hRjd7xWq/projectbar)
 
-Make sure to install dependencies:
+## Deployment
 
-```bash
-# npm
-npm install
+Soon to come, check back later
 
-# pnpm
-pnpm install
+## Try it out
 
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+### Run in local
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
+# using pnpm
+git clone https://github.com/JoanyBuclon/project-bar.git
+pnpm i
 pnpm dev
 
-# yarn
-yarn dev
 
-# bun
-bun run dev
+# using npm
+git clone https://github.com/JoanyBuclon/project-bar.git
+npm i
+npm run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
