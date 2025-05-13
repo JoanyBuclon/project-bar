@@ -11,4 +11,5 @@
             <TaskList @percentage="(percentage: number) => completionPercent = percentage" />
         </div>
     </div>
+    <Footer />
 </template>
