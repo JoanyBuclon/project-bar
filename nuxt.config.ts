@@ -30,6 +30,14 @@ export default defineNuxtConfig({
     }
   },
   devtools: { enabled: true },
-  modules: ['@nuxt/ui', '@nuxt/fonts', '@nuxt/icon'],
+  modules: [
+    '@nuxt/ui',
+    '@nuxt/fonts',
+    '@nuxt/icon',
+    '@nuxthub/core',
+  ],
   css: ['~/assets/css/main.css'],
+  hub: {
+    
+  }
 })
