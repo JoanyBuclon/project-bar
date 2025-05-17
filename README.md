@@ -6,9 +6,13 @@ You can check my [roadmap](https://trello.com/b/hRjd7xWq/projectbar)
 
 ## Deployment
 
-Soon to come, check back later
+Deployed using [NuxtHub](https://hub.nuxt.com/)
 
 ## Try it out
+
+### Online
+
+Check out the online version: [project-bar.nuxt.dev](https://project-bar.nuxt.dev/)
 
 ### Run in local
 
