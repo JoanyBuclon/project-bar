@@ -42,7 +42,7 @@
 <template>
     <div class="lg:p-6">
         <div class="flex flex-row p-2 group" v-for="task in tasks">
-            <button class="invisible group-hover:visible" @click="deleteTask(task)">
+            <button class="lg:invisible lg:group-hover:visible" @click="deleteTask(task)">
                 <Icon class="text-red-600 cursor-pointer items-center" name="fa6-regular:trash-can" size="16" />
             </button>
             <UCheckbox class="items-center transform lg:scale-120 px-2 lg:px-4" v-model="task.completed" @change="calculatePercentage" />
