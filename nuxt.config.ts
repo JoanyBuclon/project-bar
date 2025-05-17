@@ -36,11 +36,5 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxthub/core',
   ],
-  css: ['~/assets/css/main.css'],
-  runtimeConfig: {
-    public: {
-      posthogPublicKey: process.env.POSTHOG_PUBLIC_KEY,
-      posthogHost: process.env.POSTHOG_HOST
-    }
-  }
+  css: ['~/assets/css/main.css']
 })
