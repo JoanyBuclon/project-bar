@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import type { Task } from '~/types/Task'
+    import type { Task } from '~/types/task'
 
     const tasks = ref<Task[]>([
         {
@@ -24,11 +24,22 @@
         emit('percentage', percentage)
     }
 
+    function checkEmpty(task: Task) {
+        if (task.name.trim() === '') task.name = 'Task'
+    }
+
     calculatePercentage()
 
     const newTask = ref('')
+    const addError = ref('')
     function addTask() {
+        if (newTask.value.trim() === '') {
+            addError.value = 'Enter a valid name!'
+            return
+        }
+
         tasks.value.push({ name: newTask.value, completed: false})
+        addError.value = ''
         newTask.value = ''
         calculatePercentage()
     }
@@ -46,11 +57,16 @@
                 <Icon class="text-red-600 cursor-pointer items-center" name="fa6-regular:trash-can" size="16" />
             </button>
             <UCheckbox class="items-center transform lg:scale-120 px-2 lg:px-4" v-model="task.completed" @change="calculatePercentage" />
-            <input v-model="task.name" class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" />
+            <input v-model="task.name" class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none w-full" @change="checkEmpty(task)"/>
+        </div>
+
+        <div class="flex flex-row p-2 group" v-if="tasks.length === 0">
+            <p class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none">Waiting for your first task!</p>
         </div>
 
         <form @submit.prevent="addTask">
-            <input class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" v-model="newTask" required placeholder="Add a new task" />
+            <input class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" v-model="newTask" placeholder="Add a new task" />
+            <p v-if="addError" class="lg:text-lg text-red-500">{{ addError }}</p>
         </form>
     </div>
 </template>
