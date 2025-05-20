@@ -49,6 +49,10 @@
             <input v-model="task.name" class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" />
         </div>
 
+        <div class="flex flex-row p-2 group" v-if="tasks.length === 0">
+            <p class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none">Waiting for your first task!</p>
+        </div>
+
         <form @submit.prevent="addTask">
             <input class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" v-model="newTask" required placeholder="Add a new task" />
         </form>
