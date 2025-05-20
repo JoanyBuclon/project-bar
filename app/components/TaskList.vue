@@ -31,8 +31,15 @@
     calculatePercentage()
 
     const newTask = ref('')
+    const addError = ref('')
     function addTask() {
+        if (newTask.value.trim() === '') {
+            addError.value = 'Enter a valid name!'
+            return
+        }
+
         tasks.value.push({ name: newTask.value, completed: false})
+        addError.value = ''
         newTask.value = ''
         calculatePercentage()
     }
@@ -58,7 +65,8 @@
         </div>
 
         <form @submit.prevent="addTask">
-            <input class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" v-model="newTask" required placeholder="Add a new task" />
+            <input class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" v-model="newTask" placeholder="Add a new task" />
+            <p v-if="addError" class="lg:text-lg text-red-500">{{ addError }}</p>
         </form>
     </div>
 </template>
