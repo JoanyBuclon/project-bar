@@ -24,6 +24,10 @@
         emit('percentage', percentage)
     }
 
+    function checkEmpty(task: Task) {
+        if (task.name.trim() === '') task.name = 'Task'
+    }
+
     calculatePercentage()
 
     const newTask = ref('')
@@ -46,7 +50,7 @@
                 <Icon class="text-red-600 cursor-pointer items-center" name="fa6-regular:trash-can" size="16" />
             </button>
             <UCheckbox class="items-center transform lg:scale-120 px-2 lg:px-4" v-model="task.completed" @change="calculatePercentage" />
-            <input v-model="task.name" class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none" />
+            <input v-model="task.name" class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none w-full" @change="checkEmpty(task)"/>
         </div>
 
         <div class="flex flex-row p-2 group" v-if="tasks.length === 0">
