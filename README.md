@@ -1,12 +1,18 @@
-# Project Bar
+# Project Bar - A Visual ProgressBar
 
-A small and visual project management tool
+A small and visual project management tool with local save
 
 You can check my [roadmap](https://trello.com/b/hRjd7xWq/projectbar)
 
 ## Deployment
 
 Deployed using [NuxtHub](https://hub.nuxt.com/)
+
+## Privacy
+
+No data are being sent anywhere, everything stays on your local browser
+
+Projects created with the tool are saved inside localstorage
 
 ## Try it out
 
