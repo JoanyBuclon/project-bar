@@ -2,15 +2,12 @@
     import type { Task } from '~/types/task'
 
     const props = defineProps({ tasks: Array<Task> })
-    const tasks = ref<Task[]>(props.tasks ?? new Array<Task>());
+
+    const tasks = ref<Task[]>(props.tasks ?? new Array<Task>())
     const emit = defineEmits(['tasks'])
 
     function tasksChange() {
         emit('tasks', tasks.value)
-    }
-
-    function checkEmpty(task: Task) {
-        if (task.name.trim() === '') task.name = 'Task'
     }
 
     tasksChange()
@@ -33,6 +30,11 @@
         tasks.value = tasks.value.filter(t => t !== task)
         tasksChange()
     }
+
+    function onTaskNameChanged(task: Task) {
+        if (task.name.trim() === '') task.name = 'Task'
+        tasksChange()
+    }
 </script>
 
 <template>
@@ -42,7 +44,7 @@
                 <Icon class="text-red-600 cursor-pointer items-center" name="fa6-regular:trash-can" size="16" />
             </button>
             <UCheckbox class="items-center transform lg:scale-120 px-2 lg:px-4" v-model="task.completed" @change="tasksChange" />
-            <input v-model="task.name" class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none w-full" @change="checkEmpty(task)"/>
+            <input v-model="task.name" class="text-lg lg:text-xl font-bold p-1 lg:p-2 focus:outline-none w-full" @change="onTaskNameChanged(task)"/>
         </div>
 
         <div class="flex flex-row p-2 group" v-if="tasks.length === 0">
