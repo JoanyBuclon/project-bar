@@ -52,6 +52,7 @@
 </script>
 
 <template>
+    <Header />
     <div class="flex items-center justify-center h-screen">
         <div class="flex flex-col gap-4 w-4/5 lg:w-2/5">
             <input v-model="project.name" class="text-xl lg:text-4xl font-bold text-center p-2 lg:p-6 focus:outline-none w-full" maxlength="50" @change="onNameChanged" />
