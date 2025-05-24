@@ -38,7 +38,7 @@
 </script>
 
 <template>
-    <div class="lg:p-6">
+    <div class="lg:p-6 overflow-auto max-h-144">
         <div class="flex flex-row p-2 group" v-for="task in tasks">
             <button class="lg:invisible lg:group-hover:visible" @click="deleteTask(task)">
                 <Icon class="text-red-600 cursor-pointer items-center" name="fa6-regular:trash-can" size="16" />
