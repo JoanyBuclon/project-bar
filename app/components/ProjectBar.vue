@@ -57,7 +57,7 @@
         <div class="flex flex-col gap-4 w-4/5 lg:w-2/5">
             <div class="flex items-start pl-8">
                 <input v-model="project.name" class="text-xl lg:text-4xl font-bold text-center p-2 lg:p-6 focus:outline-none w-full" maxlength="35" @change="onNameChanged" />
-                <UButton class="cursor-pointer" icon="i-lucide-settings" color="neutral" variant="outline"></UButton>
+                <ProjectSettings :project="project"/>
             </div>
             <UProgress v-model="completionPercent" color="primary" size="2xl" status />
             <TaskList v-if="ready" :tasks="project.tasks" @tasks="onTasksChange" />
