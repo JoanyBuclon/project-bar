@@ -5,34 +5,34 @@
         [
             {
                 label: 'Projects',
-                icon: 'fa6-regular:folder',
+                icon: 'i-lucide-folder',
                 color: 'primary'
             },
             {
                 label: 'Import new project',
-                icon: 'fa6-regular:circle-up'
+                icon: 'i-lucide-arrow-up'
             },
             {
                 label: 'Export current project',
-                icon: 'fa6-regular:circle-down'
+                icon: 'i-lucide-arrow-down'
             }
         ],
         [
             {
                 label: 'Github',
-                icon: 'i-simple-icons-github',
+                icon: 'i-lucide-github',
                 to: 'https://github.com/JoanyBuclon/project-bar',
                 target: '_blank'
             },
             {
                 label: 'Roadmap',
-                icon: 'i-simple-icons-trello',
+                icon: 'i-lucide-trello',
                 to: 'https://trello.com/b/hRjd7xWq/projectbar',
                 target: '_blank'
             },
             {
                 label: 'About Project-Bar',
-                icon: 'fa6-regular:lightbulb'
+                icon: 'i-lucide-lightbulb'
             }
         ]
     ])
