@@ -1,9 +1,8 @@
 <script setup lang="ts">
     import type { Task } from '~/types/task'
 
-    const props = defineProps({ tasks: Array<Task> })
-
-    const tasks = ref<Task[]>(props.tasks ?? new Array<Task>())
+    const props = defineProps<{ tasks: Array<Task> }>()
+    const tasks = ref<Array<Task>>(props.tasks ?? new Array<Task>())
     const emit = defineEmits(['tasks'])
 
     function tasksChange() {
