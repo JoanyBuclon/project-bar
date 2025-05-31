@@ -25,10 +25,6 @@
         URL.revokeObjectURL(url)
         isExporting.value = false
         isSuccessful.value = true
-
-        setTimeout(() => {
-          isSuccessful.value = false
-        }, 5000);
     }
 
     function Delete() {
@@ -38,11 +34,17 @@
       isDeleting.value = false
       open.value = false
     }
+
+    function init() {
+      isExporting.value = false
+      isDeleting.value = false
+      isSuccessful.value = false
+    }
 </script>
 
 <template>
     <UModal v-model:open="open" title="Project settings" close-icon="i-lucide-x">
-      <UButton class="cursor-pointer" icon="i-lucide-settings" color="neutral" variant="outline" />
+      <UButton class="cursor-pointer" icon="i-lucide-settings" color="neutral" variant="outline" @click="init" />
       <template #body>
         <div class="flex flex-col gap-5">
           <div class="flex items-center gap-3">

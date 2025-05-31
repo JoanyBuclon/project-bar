@@ -53,14 +53,19 @@
         emit('import', project)
     }
 
+    function init() {
+        json.value = undefined
+        error.value = ''
+    }
+
 </script>
 
 <template>
     <UModal v-model:open="open" title="Import project" description="Choose a project to import" close-icon="i-lucide-x">
-      <UButton class="cursor-pointer" icon="i-lucide-arrow-up" label="Import project" />
+      <UButton class="cursor-pointer" icon="i-lucide-arrow-up" label="Import project" @click="init" />
       <template #body>
         <div class="flex items-center justify-center w-full">
-            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer border-gray-600 hover:border-primary">
+            <label v-if="!json" for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer border-gray-600 hover:border-primary">
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                     <UIcon name="i-lucide-cloud-upload"/>
                     <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
