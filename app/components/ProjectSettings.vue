@@ -25,6 +25,10 @@
         URL.revokeObjectURL(url)
         isExporting.value = false
         isSuccessful.value = true
+
+        setTimeout(() => {
+          isSuccessful.value = false
+        }, 5000);
     }
 
     function Delete() {
@@ -45,7 +49,8 @@
               <UButton class="cursor-pointer" icon="i-lucide-arrow-down" color="info" @click="Export" :loading="isExporting" >Export project</UButton>
               <p v-if="isSuccessful" class="text-primary">Download successful!</p>
           </div>
-          <div class="flex pt-10">
+          <USeparator class="pt-10" />
+          <div class="flex ">
             <UButton class="cursor-pointer" icon="i-lucide-trash" color="error" @click="Delete" :loading="isDeleting">Delete project</UButton>
           </div>
         </div>
