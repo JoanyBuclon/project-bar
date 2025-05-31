@@ -2,6 +2,7 @@
     import type { SimpleProject } from '~/types/simple-project';
 
     const props = defineProps<{ projects: Array<SimpleProject> }>()
+    const emit = defineEmits(['import'])
 
     const open = ref(false)
     const json = ref<SimpleProject>()
@@ -16,12 +17,21 @@
         if (!file) return
 
         const reader = new FileReader()
+        let value : SimpleProject
         reader.onload = () => {
             try {
-                json.value = JSON.parse(reader.result as string)
+                value = JSON.parse(reader.result as string)
+
+                if (!value.name || !value.id) {
+                    error.value = 'Name or Id missing. Try importing another file.'
+                    return
+                }
+
+                json.value = value
                 error.value = ''
             } catch {
                 error.value = 'Invalid json detected. Try importing another file.'
+                return
             }
         }
 
@@ -30,7 +40,17 @@
     }
 
     function onImport() {
-        alert('hello')
+        if (!json.value) return
+        const project = json.value
+        project.lastUpdate = new Date()
+        const exist = props.projects.some(p => p.id === project.id)
+
+        if (exist) {
+            error.value = 'ce cas'
+            return
+        }
+        
+        emit('import', project)
     }
 
 </script>
@@ -49,7 +69,7 @@
                 <input id="dropzone-file" type="file"  @change="onFileSet" accept=".json" class="hidden" />
             </label>
         </div>
-        <p v-if="json && !error" class="text-primary">Project detected! Click import to start!</p>
+        <p v-if="json && !error" class="text-primary">Project detected! Click import to start.</p>
         <p v-if="error" class="text-red-500">{{ error }}</p>
       </template>
       <template #footer>

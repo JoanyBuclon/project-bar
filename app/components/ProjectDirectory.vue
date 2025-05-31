@@ -21,10 +21,13 @@
     }
 
     function onCreateProject() {
-      const newProject = defaultSimpleProject()
-      const updatedProjects = [...projectList.value, newProject]
+      createProject(defaultSimpleProject())
+    }
+
+    function createProject(project: SimpleProject) {
+      const updatedProjects = [...projectList.value, project]
       setProjects('projects', updatedProjects)
-      onOpenProject(newProject.id)
+      onOpenProject(project.id)
     }
 </script>
 
@@ -39,7 +42,7 @@
           </div>
           <div class="grid basis-1/6 gap-3 justify-end content-start p-2">
             <UButton class="cursor-pointer" icon="i-lucide-plus" @click="onCreateProject">Add project</UButton>
-            <Import :projects="projectList"/>
+            <Import :projects="projectList" @import="createProject"/>
           </div>
         </div>
       </template>
