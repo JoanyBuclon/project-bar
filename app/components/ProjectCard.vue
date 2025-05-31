@@ -32,8 +32,8 @@
 </script>
 
 <template>
-    <div class="border-2 border-dashed rounded-lg border-gray-600 hover:border-primary w-80 h-40 cursor-pointer" @click="onClick">
-      <div class="w-full h-full flex flex-col gap-4 p-1">
+    <div class="border-2 border-dashed rounded-lg border-gray-600 hover:border-primary w-50 lg:w-80 h-30 lg:h-40 cursor-pointer" @click="onClick">
+      <div class="w-full h-full flex flex-col gap-3 p-1">
         <div class="flex flex-col gap-2 justify-center items-center h-2/3">
           <p class="font-bold">{{ project.name }}</p>
           <div class="w-2/3">

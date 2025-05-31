@@ -44,7 +44,7 @@
       <UButton class="cursor-pointer" icon="i-lucide-menu" color="neutral" variant="outline" />
       <template #body>
         <div class="flex flex-row">
-          <div class="basis-5/6 divide-default grid grid-cols-1 lg:grid-cols-4 gap-5 overflow-auto max-h-220">
+          <div class="basis-5/6 grid grid-cols-1 lg:[grid-template-columns:repeat(auto-fill,minmax(320px,1fr))] gap-5">
             <ProjectCard v-for="project in projectList" :project="project" @id="onOpenProject"/>
           </div>
           <div class="grid basis-1/6 gap-3 justify-end content-start p-2">
