@@ -7,6 +7,7 @@
     const open = ref(false)
     const json = ref<SimpleProject>()
     const error = ref<string>('')
+    const openWarning = ref(false)
 
     function onFileSet(event: Event) {
         error.value = ''
@@ -46,7 +47,7 @@
         const exist = props.projects.some(p => p.id === project.id)
 
         if (exist) {
-            error.value = 'ce cas'
+            openWarning.value = true
             return
         }
         
@@ -58,6 +59,19 @@
         error.value = ''
     }
 
+    function closeSubModal(replace: boolean) {
+        if (!json.value) return
+
+        openWarning.value = false
+        const project = json.value
+        project.lastUpdate = new Date()
+
+        if (!replace) {
+            project.id = Date.now().toString() 
+        }
+        
+        emit('import', project)
+    }
 </script>
 
 <template>
@@ -65,7 +79,7 @@
       <UButton class="cursor-pointer" icon="i-lucide-arrow-up" label="Import project" @click="init" />
       <template #body>
         <div class="flex items-center justify-center w-full">
-            <label v-if="!json" for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer border-gray-600 hover:border-primary">
+            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer border-gray-600 hover:border-primary">
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                     <UIcon name="i-lucide-cloud-upload"/>
                     <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
@@ -80,6 +94,7 @@
       <template #footer>
         <div class="flex gap-1.5 justify-end w-full">
             <UButton class="cursor-pointer" icon="i-lucide-plus" :disabled="!json" @click="onImport">Import</UButton>
+            <ImportValidation :open="openWarning" @replace="closeSubModal"/>
         </div>
       </template>
     </UModal>

@@ -25,7 +25,14 @@
     }
 
     function createProject(project: SimpleProject) {
-      const updatedProjects = [...projectList.value, project]
+      const exist = projectList.value.some(p => p.id === project.id)
+
+      let projects = projectList.value
+      if (exist) {
+        projects = projectList.value.filter(p => p.id !== project.id)
+      }
+
+      const updatedProjects = [...projects, project]
       setProjects('projects', updatedProjects)
       onOpenProject(project.id)
     }
@@ -37,7 +44,7 @@
       <UButton class="cursor-pointer" icon="i-lucide-menu" color="neutral" variant="outline" />
       <template #body>
         <div class="flex flex-row">
-          <div class="basis-5/6 divide-default grid grid-cols-4 gap-9 overflow-auto max-h-220">
+          <div class="basis-5/6 divide-default grid grid-cols-1 lg:grid-cols-4 gap-5 overflow-auto max-h-220">
             <ProjectCard v-for="project in projectList" :project="project" @id="onOpenProject"/>
           </div>
           <div class="grid basis-1/6 gap-3 justify-end content-start p-2">
