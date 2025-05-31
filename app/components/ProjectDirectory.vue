@@ -26,10 +26,6 @@
       setProjects('projects', updatedProjects)
       onOpenProject(newProject.id)
     }
-
-    function onImportProject() {
-      alert('import ready')
-    }
 </script>
 
 <template>
@@ -43,7 +39,7 @@
           </div>
           <div class="grid basis-1/6 gap-3 justify-end content-start p-2">
             <UButton class="cursor-pointer" icon="i-lucide-plus" @click="onCreateProject">Add project</UButton>
-            <UButton class="cursor-pointer" icon="i-lucide-arrow-up" @click="onImportProject">Import project</UButton>
+            <Import :projects="projectList"/>
           </div>
         </div>
       </template>
