@@ -8,6 +8,12 @@
     let project = reactive<SimpleProject>(defaultSimpleProject())
 
     onMounted(() => {
+        loadLatestProject()
+    })
+
+    function loadLatestProject() {
+        ready.value = false
+
         projectList.value = getProjects('projects')
         
         if (projectList.value.length > 0) {
@@ -18,7 +24,7 @@
         }
 
         ready.value = true
-    })
+    }
 
     const completionPercent = ref(0)
 
@@ -49,6 +55,12 @@
         ready.value = true;
     }
 
+    function deleteProjectById(id: string) {
+        const projects = projectList.value.filter(p => p.id !== id)
+        setProjects('projects', [...projects])
+        loadLatestProject()
+    }
+
     function calculatePercentage(tasks: Task[]) {
         const completedTasks = tasks.filter(task => task.completed).length
         completionPercent.value = Math.round((completedTasks / tasks.length) * 100)
@@ -61,7 +73,7 @@
         <div class="flex flex-col gap-4 w-4/5 lg:w-2/5">
             <div class="flex items-start pl-8">
                 <input v-model="project.name" class="text-xl lg:text-4xl font-bold text-center p-2 lg:p-6 focus:outline-none w-full" maxlength="35" @change="onNameChanged" />
-                <ProjectSettings :project="project"/>
+                <ProjectSettings :project="project" @delete="deleteProjectById"/>
             </div>
             <UProgress v-model="completionPercent" color="primary" size="2xl" status />
             <TaskList v-if="ready" :tasks="project.tasks" @tasks="onTasksChange" />
