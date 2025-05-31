@@ -2,11 +2,10 @@
     import type { Task } from '~/types/task'
 
     const props = defineProps<{ tasks: Array<Task> }>()
-    const tasks = ref<Array<Task>>(props.tasks ?? new Array<Task>())
     const emit = defineEmits(['tasks'])
 
     function tasksChange() {
-        emit('tasks', tasks.value)
+        emit('tasks', props.tasks)
     }
 
     tasksChange()
@@ -19,15 +18,14 @@
             return
         }
 
-        tasks.value.push({ name: newTask.value, completed: false})
+        props.tasks.push({ name: newTask.value, completed: false})
         addError.value = ''
         newTask.value = ''
         tasksChange()
     }
 
     function deleteTask(task: Task) {
-        tasks.value = tasks.value.filter(t => t !== task)
-        tasksChange()
+        emit('tasks', props.tasks.filter(t => t !== task))
     }
 
     function onTaskNameChanged(task: Task) {

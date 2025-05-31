@@ -1,8 +1,6 @@
 <script setup lang="ts">
-      import type { SimpleProject } from '~/types/simple-project';
-
+    import type { SimpleProject } from '~/types/simple-project';
     const props = defineProps<{project: SimpleProject}>()
-    const project = ref<SimpleProject>(props.project ?? {})
 
     const isExporting = ref<boolean>(false)
     const isSuccessful = ref<boolean>(false)
@@ -10,13 +8,13 @@
         isExporting.value = true
         isSuccessful.value = false
 
-        const jsonContent = JSON.stringify(project.value, null, 2)
+        const jsonContent = JSON.stringify(props.project, null, 2)
         const blob = new Blob([jsonContent], { type: 'application/json' })
         const url = URL.createObjectURL(blob)
 
         const link = document.createElement('a')
         link.href = url
-        link.download = project.value.name + '.json'
+        link.download = props.project.name + '.json'
         document.body.appendChild(link)
         link.click()
 

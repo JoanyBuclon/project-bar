@@ -2,28 +2,28 @@
   import type { SimpleProject } from '~/types/simple-project';
 
   const props = defineProps<{project: SimpleProject}>()
-  const project = ref<SimpleProject>(props.project ?? {})
   const completionPercent = ref(0)
 
   const emit = defineEmits(['id'])
 
   function onClick() {
-    emit('id', project.value.id)
+    emit('id', props.project.id)
   }
 
   function formatDate(date: Date) {
-    const day = String(date.getDate()).padStart(2, '0')
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const year = date.getFullYear()
+    const dateObject = new Date(date)
+    const day = String(dateObject.getDate()).padStart(2, '0')
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0')
+    const year = dateObject.getFullYear()
 
-    const hour = String(date.getHours()).padStart(2, '0')
-    const minute = String(date.getMinutes()).padStart(2, '0')
+    const hour = String(dateObject.getHours()).padStart(2, '0')
+    const minute = String(dateObject.getMinutes()).padStart(2, '0')
 
     return `${hour}:${minute} - ${day}/${month}/${year}`
   }
 
   function calculatePercentage() {
-    const tasks = project.value.tasks
+    const tasks = props.project.tasks
     const completedTasks = tasks.filter(task => task.completed).length
     completionPercent.value = Math.round((completedTasks / tasks.length) * 100)
   }

@@ -1,26 +1,49 @@
 <script setup lang="ts">
-    import type { SimpleProject } from '~/types/simple-project';
+    import { defaultSimpleProject, type SimpleProject } from '~/types/simple-project';
 
-    const props = defineProps<{ projects: Array<SimpleProject> }>()
-    const projects = ref<Array<SimpleProject>>(props.projects ?? new Array<SimpleProject>())
+    const projectList = ref<Array<SimpleProject>>([])
+    const open = ref(false)
 
+    onMounted(() => {
+      loadProjects()
+    })
+
+    function loadProjects() {
+      const projects = getProjects('projects')
+      projectList.value = projects.sort((a, b) => new Date(b.lastUpdate).getTime() - new Date(a.lastUpdate).getTime())
+
+    }
+
+    const emit = defineEmits(['id'])
     function onOpenProject(id: string) {
-      alert(id)
+      emit('id', id)
+      open.value = false
+    }
+
+    function onCreateProject() {
+      const newProject = defaultSimpleProject()
+      const updatedProjects = [...projectList.value, newProject]
+      setProjects('projects', updatedProjects)
+      onOpenProject(newProject.id)
+    }
+
+    function onImportProject() {
+      alert('import ready')
     }
 </script>
 
 <template>
   <header class="flex fixed top-0 right-0 p-8">
-    <UModal fullscreen title="Project directory" description="Choose a project to open" close-icon="i-lucide-x">
+    <UModal v-model:open="open" fullscreen title="Project directory" description="Choose a project to open" close-icon="i-lucide-x" @update:open="loadProjects()">
       <UButton class="cursor-pointer" icon="i-lucide-menu" color="neutral" variant="outline" />
       <template #body>
         <div class="flex flex-row">
           <div class="basis-5/6 divide-default grid grid-cols-4 gap-9 overflow-auto max-h-220">
-            <ProjectCard v-for="project in projects" :project="project" @id="onOpenProject"/>
+            <ProjectCard v-for="project in projectList" :project="project" @id="onOpenProject"/>
           </div>
           <div class="grid basis-1/6 gap-3 justify-end content-start p-2">
-            <UButton class="cursor-pointer" icon="i-lucide-plus">Add project</UButton>
-            <UButton class="cursor-pointer" icon="i-lucide-arrow-up">Import project</UButton>
+            <UButton class="cursor-pointer" icon="i-lucide-plus" @click="onCreateProject">Add project</UButton>
+            <UButton class="cursor-pointer" icon="i-lucide-arrow-up" @click="onImportProject">Import project</UButton>
           </div>
         </div>
       </template>
