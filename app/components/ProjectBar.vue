@@ -4,6 +4,7 @@
     import type { Task } from '~/types/task'
 
     const ready = ref<boolean>(false)
+    const projectList = ref<Array<SimpleProject>>([])
     const project = ref<SimpleProject>({
         id: Date.now().toString(),
         name: 'Project Name',
@@ -26,10 +27,15 @@
     })
 
     onMounted(() => {
-        const savedProject = getProjects('projects')
+        projectList.value = getProjects('projects')
 
-        if (savedProject.length > 0 && savedProject[0])
-            project.value = savedProject[0]
+        
+        if (projectList.value.length > 0) {
+            const latestProject = projectList.value.sort((a, b) => b.lastUpdate.getTime() - a.lastUpdate.getTime())[0]
+
+            if (latestProject)
+                project.value = latestProject
+        }
 
         ready.value = true
     })
@@ -49,10 +55,19 @@
         project.value.lastUpdate = new Date()
         setProjects('projects', [project.value])
     }
+
+    function loadProjectById(id: string) {
+        ready.value = false;
+        const projectToLoad = projectList.value?.find(p => p.id === id)
+        if (projectToLoad)
+            project.value = projectToLoad
+
+        ready.value = true;
+    }
 </script>
 
 <template>
-    <ProjectDirectory :projects="[project]" />
+    <ProjectDirectory v-if="ready" :projects="projectList" />
     <div class="flex items-center justify-center h-screen">
         <div class="flex flex-col gap-4 w-4/5 lg:w-2/5">
             <div class="flex items-start pl-8">
@@ -61,7 +76,7 @@
             </div>
             <UProgress v-model="completionPercent" color="primary" size="2xl" status />
             <TaskList v-if="ready" :tasks="project.tasks" @tasks="onTasksChange" />
-            <div v-if="!ready">Loading project from storage...</div>
+            <div v-if="!ready">Loading projects from storage...</div>
         </div>
     </div>
     <Footer />

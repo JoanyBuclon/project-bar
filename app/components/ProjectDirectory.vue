@@ -1,9 +1,12 @@
 <script setup lang="ts">
-  import type { SimpleProject } from '~/types/simple-project';
+    import type { SimpleProject } from '~/types/simple-project';
 
-  const props = defineProps<{ projects: Array<SimpleProject> }>()
-  const projects = ref<Array<SimpleProject>>(props.projects ?? new Array<SimpleProject>())
+    const props = defineProps<{ projects: Array<SimpleProject> }>()
+    const projects = ref<Array<SimpleProject>>(props.projects ?? new Array<SimpleProject>())
 
+    function onOpenProject(id: string) {
+      alert(id)
+    }
 </script>
 
 <template>
@@ -13,9 +16,7 @@
       <template #body>
         <div class="flex flex-row">
           <div class="basis-5/6 divide-default grid grid-cols-4 gap-9 overflow-auto max-h-220">
-            <ProjectCard v-if="projects[0]" :project="projects[0]"/>
-            <ProjectCard v-if="projects[0]" :project="projects[0]"/>
-            <ProjectCard v-if="projects[0]" :project="projects[0]"/>
+            <ProjectCard v-for="project in projects" :project="project" @id="onOpenProject"/>
           </div>
           <div class="grid basis-1/6 gap-3 justify-end content-start p-2">
             <UButton class="cursor-pointer" icon="i-lucide-plus">Add project</UButton>
